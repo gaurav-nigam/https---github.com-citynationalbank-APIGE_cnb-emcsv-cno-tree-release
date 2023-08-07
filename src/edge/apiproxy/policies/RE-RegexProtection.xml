@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RegularExpressionProtection continueOnError="false" enabled="true" name="RE-RegexProtection">
+    <DisplayName>RE-RegexProtection</DisplayName>
+    <Properties/>
+    <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+    <QueryParam name="query">
+        <Pattern>[\s]*((delete)|((exec -[0-9][a-z][A-Z]*  [0-9][a-z][A-Z]*))|(exec)|(drop\s*table)|(alter\s*table)|(insert)|(shutdown)|(update)|(select)|(\bor\b))</Pattern>
+        <Pattern>&lt;!--#(include|(exec -[0-9][a-z][A-Z]*  [0-9][a-z][A-Z]*)|echo|config|set|printenv)\s+.*</Pattern>
+        <Pattern>[\s]*((')|(#)|(--))</Pattern>
+        <Pattern>.*Exception in thread.*</Pattern>
+        <Pattern>[\s]*((applet)|(embed)|(iframe)|(frame)|(ilayer)|(layer)|(html)|(body)|(object)|(script)|(img)|(meta)|(style))</Pattern>
+        <Pattern>&lt;\s*script\b[^&gt;]*&gt;[^&lt;]+&lt;\s*\/\s*script\s*&gt;</Pattern>
+        <Pattern>/?(ancestor(-or-self)?|descendant(-or-self)?|following(-sibling))</Pattern>
+        <Pattern>[\s]*((')|(;)|(&lt;)|(&gt;)|(&amp;))</Pattern>
+    </QueryParam>
+    <Source>request</Source>
+</RegularExpressionProtection>

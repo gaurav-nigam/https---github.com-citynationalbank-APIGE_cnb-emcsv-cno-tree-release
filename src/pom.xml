@@ -1,0 +1,31 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.cnb.apigee</groupId>
+    <artifactId>cnb-emcsv-sqn-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.4-SNAPSHOT</version>
+    <name>cnb-emcsv-sqn-parent</name>
+
+    <parent>
+        <groupId>com.apigee.commons</groupId>
+        <artifactId>parent-pom</artifactId>
+        <version>1.0.4-SNAPSHOT</version>
+		<relativePath>./commons-parent-pom.xml</relativePath>
+    </parent>
+
+
+   <!--<properties>
+        <basePath>/v1/sqn</basePath>
+    </properties>--> 
+    <properties>
+            <teamName>emcsv</teamName>
+            <org>apigee-cnb-dev</org>
+            <env>dev-1</env>
+            <file>apigee_cnb_sa.json</file>
+    </properties>                
+
+
+	<modules>
+		<module>edge</module>
+	</modules>
+</project>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<XMLThreatProtection continueOnError="false" enabled="true" name="TP-XMLThreatProtection">
+    <DisplayName>TP-XMLThreatProtection</DisplayName>
+    <Properties/>
+    <NameLimits>
+        <Element>50</Element>
+        <Attribute>50</Attribute>
+        <NamespacePrefix>50</NamespacePrefix>
+        <ProcessingInstructionTarget>50</ProcessingInstructionTarget>
+    </NameLimits>
+    <Source>request</Source>
+    <StructureLimits>
+        <NodeDepth>10</NodeDepth>
+        <AttributeCountPerElement>10</AttributeCountPerElement>
+        <NamespaceCountPerElement>5</NamespaceCountPerElement>
+        <ChildCount includeComment="true" includeElement="true" includeProcessingInstruction="true" includeText="true">50</ChildCount>
+    </StructureLimits>
+    <ValueLimits>
+        <Text>500</Text>
+        <Attribute>50</Attribute>
+        <NamespaceURI>50</NamespaceURI>
+        <Comment>100</Comment>
+        <ProcessingInstructionData>50</ProcessingInstructionData>
+    </ValueLimits>
+</XMLThreatProtection>

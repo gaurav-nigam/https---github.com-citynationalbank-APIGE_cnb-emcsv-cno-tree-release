@@ -1,0 +1,61 @@
+# Branch trigger
+trigger:
+    batch: true
+    branches:
+        include:
+        - main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository
+  MAVEN_OPTS: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
+  EDGE_CACHE_FOLDER: $(Pipeline.Workspace)/edge/target
+  npm_config_cache: $(Pipeline.Workspace)/.npm
+  -group: Dev
+
+stages:
+- stage: build
+  displayName: Build
+  jobs:
+  - job: Build
+    steps:
+      - bash: |
+            echo "Hello world from $AGENT_NAME running on $AGENT_OS" 
+            echo " Variable apigee_org: $(apigee_org) "
+            echo " Variable apigee_env: $(apigee_env) "          
+      - task: Cache@2
+        inputs:
+          key: 'maven | "$(Agent.OS)" | **/pom.xml'
+          restoreKeys: |
+            maven | "$(Agent.OS)"
+            maven
+          path: $(MAVEN_CACHE_FOLDER)
+        displayName: Cache Maven local repo
+      
+      - task: Cache@2
+        inputs:
+          key: 'npm | "$(Agent.OS)" | **/package.json'
+          restoreKeys: |
+            npm | "$(Agent.OS)"
+          path: $(npm_config_cache)
+        displayName: Cache npm
+
+      - bash: |
+          cd src/edge 
+          mvn package -Papigee -Denv=$(apigee_env) -Dorg=$(apigee_org) -X -e
+        displayName: build
+
+      - task: PublishBuildArtifacts@1
+        inputs:
+          PathtoPublish: '$(System.DefaultWorkingDirectory)'
+          ArtifactName: 'drop'
+          publishLocation: 'Container'
+      
+      - bash: |
+          pwd 
+          cd src/edge 
+          npm install 
+          ./node_modules/.bin/apigeelint -s target/apiproxy -f table
+        displayName: static code analysis

@@ -1,0 +1,8 @@
+[
+    {
+        "host": "${org}-${env}.apigee.net",
+        "isEnabled": true,
+        "name": "mockTarget",
+        "port": 443
+    }
+]
